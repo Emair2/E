@@ -48,8 +48,8 @@ function detectPink(capture) {
       let g = capture.pixels[index + 1];
       let b = capture.pixels[index + 2];
 
-      // check pink
-      if (r > 150 && g < 100 && b > 150) {
+      // 降低红色和蓝色通道的阈值
+      if (r > 120 && g < 100 && b > 120) {
         return true;
       }
     }
