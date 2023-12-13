@@ -6,28 +6,33 @@ let showImage = false;
 function setup() {
   createCanvas(360, 640);
 
-  video1 = createVideo(['E.mp4']);
-  video1.loop();
+  video1 = createVideo(['E.mp4'], videoLoaded);
+  video1.hide(); // 隐藏原始视频元素
 
   image2 = loadImage('video 2.png'); 
 
-  //Webcam
+  // Webcam
   capture = createCapture(VIDEO);
   capture.size(360, 640);
   capture.hide(); 
 }
 
+function videoLoaded() {
+  console.log("视频已加载完成");
+  video1.loop();
+}
+
 function draw() {
   background(255);
 
-  // check pink
+  // 检测粉色
   capture.loadPixels();
   if (capture.pixels.length > 0) {
     let detected = detectPink(capture);
-    showImage = detected; // check pink -> showImage 
+    showImage = detected; // 根据是否检测到粉色来设置 showImage 标志
   }
 
-  // Image/video
+  // 根据 showImage 标志显示图片或视频
   if (showImage) {
     image(image2, 0, 0, width, height); 
   } else {
